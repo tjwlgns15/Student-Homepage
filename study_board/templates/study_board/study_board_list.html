@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block explain_contents %}
+<div class="container">
+    <h3>수업게시판</h3><br>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>번호</th><th>작성자</th><th>제목</th>
+            <th>날짜</th><th>수정</th><th>삭제</th>
+
+        </tr>
+        </thead>
+        <tbody>
+            {% for study_board in object_list %}
+
+            <tr>
+              <td>{{ study_board.id }}</td>
+              <td>{{ study_board.user.first_name }}({{ study_board.user}})</td>
+              <td><a href="{% url 'study_board:study_board_detail' study_board.id %}">{{ study_board.title }}</a></td>
+                <td>{{ study_board.date }}</td>
+                {% if study_board.user == user or user.is_superuser %}
+                <td><a href="{% url 'study_board:study_board_edit' study_board.id %}">수정</a></td>
+                <td><a href="{% url 'study_board:study_board_delete' study_board.id %}">삭제</a></td>
+                {% else %}
+                <td></td><td></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if user.is_authenticated %}
+        <div align="right">
+            <button type="button" class="btn btn-dark"><a href="{% url 'study_board:study_board_new' %}" style="color: white; text-decoration: none;">글쓰기</a></button>
+        </div>
+    {% endif %}
+</div>
+
+
+{% endblock explain_contents %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block explain_contents %}
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'js/applyStudy.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% endblock %}
+
+<div class="container">
+    <h3>스터디 그룹 신청 </h3><br>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>번호</th><th>작성자</th><th>제목</th><th>날짜</th><th>현재 신청 인원</th><th>신청</th>
+            {% if user.is_superuser %}
+            <th>수정</th><th>삭제</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+            {% for study in object_list %}
+            <tr>
+              <td>{{ study.id }}</td>
+              <td>{{ study.user.first_name }}({{ study.user}})</td>
+              <td><a href="{% url 'study:studydetail' study.id %}">{{ study.title }}</a></td>
+                <td>{{ study.date }}</td>
+                <td id="people-{{ study.id }}"><!--<a href="{% url 'study:studydetail' study.id %}">-->{{ study.people }}</a></td>
+                <td><button class="apply-study-btn" data-study-id="{{ study.id }}">신청</button></td>
+                {% if user.is_superuser %}
+                <td><a href="{% url 'study:studyedit' study.id %}">수정</a></td>
+                <td><a href="{% url 'study:studydelete' study.id %}">삭제</a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+      {% if user.is_authenticated %}
+        <div align="right">
+           <button type="button" class="btn btn-dark"><a href="{% url 'study:studynew' %}" style="color: white; text-decoration: none;">글쓰기</a></button>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock explain_contents %}

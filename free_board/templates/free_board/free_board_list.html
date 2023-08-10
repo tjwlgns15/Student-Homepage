@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block explain_contents %}
+
+<div class="container">
+    <h3>자유게시판 테이블</h3><br>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>번호</th><th>작성자</th><th>제목</th>
+            <th>날짜</th><th>수정</th><th>삭제</th>
+
+        </tr>
+        </thead>
+        <tbody>
+            {% for free_board in object_list %}
+            <tr>
+              <td>{{ free_board.id }}</td>
+              <td>{{ free_board.user.first_name }}({{ free_board.user}})</td>
+              <td><a href="{% url 'free_board:free_board_detail' free_board.id %}">{{ free_board.title }}</a></td>
+                <td>{{ free_board.date }}</td>
+                {% if free_board.user == user or user.is_superuser %}
+                <td><a href="{% url 'free_board:free_board_edit' free_board.id %}">수정</a></td>
+                <td><a href="{% url 'free_board:free_board_delete' free_board.id %}">삭제</a></td>
+                {% else %}
+                <td></td><td></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if user.is_authenticated %}
+        <div align="right">
+            <button type="button" class="btn btn-dark"><a href="{% url 'free_board:free_board_new' %}" style="color: white; text-decoration: none;">게시글작성</a></button>
+        </div>
+    {% endif %}
+</div>
+
+
+{% endblock explain_contents %}

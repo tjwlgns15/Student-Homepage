@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block explain_contents %}
+<div align="center">
+  <h3>공고 내용</h3><br>
+  <div class="container">
+    <div class="table-responsive-sm">
+      <table class="table table-striped">
+        <thead>
+          <tr width="40%">
+            <th>id</th><th>회사</th><th>모집 내용</th><th>공고일</th><th>종료 기간</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr width="40%">
+            <td>{{ job_posting.id }}</td><td>{{ job_posting.company_name }}</td><td>{{ job_posting.contents }}</td>
+            <td>{{ job_posting.exam_date }}</td><td>D-{{ job_posting.d_day }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<br>
+{% endblock explain_contents %}

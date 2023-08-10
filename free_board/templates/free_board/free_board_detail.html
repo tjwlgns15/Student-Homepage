@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block explain_contents %}
+<html lang="ko">
+<body>
+  <div class="container">
+    <div class="container p-1 my-2 border">
+    <h3>제목:{{ free_board.title }}</h3>
+      </div>
+<div class="container p-1 my-2 border text-right">
+    <p>작성일: {{ free_board.date }}</p>
+  </div>
+      <br>
+  <h5 style="text-align: right;" >[ 게시글내용 ]</h5>
+      <div class="container p-4 my-4 bg-dark text-white border-2">
+  <p style="font-size: 23px;">"{{ free_board.content }}"</p>
+</div>
+
+{% endblock explain_contents %}

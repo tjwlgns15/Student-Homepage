@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block explain_contents %}
+  <div class="container">
+    <h1>제목:{{ study.title }}</h1>
+    <p>작성일: {{ study.date }}</p>
+    <p>내용:{{ study.content }}</p>
+    <p>모집인원: {{ study.people }}</p>
+
+  </div>
+{% endblock explain_contents %}
